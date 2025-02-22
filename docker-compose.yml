@@ -30,6 +30,7 @@ services:
     environment:
       STONE_WEB_VIEWER_PLUGIN_ENABLED: "true"
       DICOM_WEB_PLUGIN_ENABLED: "true"
+      S3_STORAGE_PLUGIN_ENABLED: "true"
       # to use OHIF-plugin:  make sure to have a "OHIF" config and use "dicom-web" source
 #      OHIF_PLUGIN_ENABLED: "true"
       ORTHANC__POSTGRESQL__HOST: "orthanc-db"
@@ -38,8 +39,15 @@ services:
       VERBOSE_STARTUP: "true"
       ORTHANC_JSON: |
         {
-          "Name": "Orthanc",
-          "OrthancExplorer2": {
+            "Name": "Orthanc",
+            "AwsS3Storage" : {
+              "BucketName": "orthanc-dev-1",
+              "Region" : "hel1",
+              "Endpoint": "hel1.your-objectstorage.com",
+              "AccessKey": "accesskey",
+              "SecretKey": "SecretKey"
+            },
+            "OrthancExplorer2": {
             "IsDefaultUI": true,
             "UiOptions": {
               "EnableShares": true,
